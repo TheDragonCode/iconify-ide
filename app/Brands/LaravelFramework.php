@@ -7,6 +7,6 @@ namespace DragonCode\IconifyIde\Brands;
 class LaravelFramework extends Brand
 {
     protected array $projects = [
-        'laravel/framework',
+        'laravel/*',
     ];
 }
