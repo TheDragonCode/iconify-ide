@@ -1,6 +1,6 @@
 <?php
 
-use App\Commands\PublishCommand;
+use DragonCode\IconifyIde\Commands\PublishCommand;
 
 return [
 

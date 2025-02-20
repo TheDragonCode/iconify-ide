@@ -6,7 +6,7 @@ namespace DragonCode\IconifyIde\Services;
 
 use DragonCode\IconifyIde\Brands\Brand;
 use DragonCode\IconifyIde\Ide\Ide;
-use League\Flysystem\Filesystem;
+use Illuminate\Contracts\Filesystem\Filesystem;
 
 class Publisher
 {
@@ -16,6 +16,10 @@ class Publisher
 
     public function publish(Ide $ide, Brand $brand): void
     {
+        dd([
+            'from' => $this->sourcePath($brand),
+            'to'   => $this->targetPath($ide),
+        ]);
         $this->files->copy(
             $this->sourcePath($brand),
             $this->targetPath($ide)

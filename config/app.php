@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => 'Iconify',
+    'name' => 'Dragon Code: Iconify IDE',
 
     /*
     |--------------------------------------------------------------------------
@@ -42,4 +42,5 @@ return [
 
     'env' => 'development',
 
+    'providers' => [],
 ];

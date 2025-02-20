@@ -15,7 +15,7 @@ use function is_dir;
 #[AsCommand('iconify')]
 class PublishCommand extends Command
 {
-    protected $signature = 'iconify {--all}';
+    protected $signature = 'iconify {--all : Publishing files in all projects of the current directory. Maximum 3 levels}';
 
     protected $description = 'Display an inspiring quote';
 
@@ -27,7 +27,7 @@ class PublishCommand extends Command
             $this->components->info($ide->getName());
 
             if (! $this->hasIde($ide)) {
-                $this->info('Not Found');
+                $this->line('Not Found');
 
                 continue;
             }
@@ -52,7 +52,7 @@ class PublishCommand extends Command
 
     protected function initializeIde(string $ide): Ide
     {
-        return new $ide();
+        return $this->app->make($ide);
     }
 
     protected function ide(): array

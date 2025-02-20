@@ -14,6 +14,8 @@ abstract class Brand
 
     protected array $sections;
 
+    protected ?string $name = null;
+
     abstract public function isFound(): bool;
 
     public function __construct(
@@ -22,7 +24,7 @@ abstract class Brand
 
     public function getName(): string
     {
-        return Str::of(static::class)->basename()->snake()->toString();
+        return $this->name ??= Str::of(static::class)->basename()->snake(' ')->apa()->toString();
     }
 
     protected function search(array $dependencies): bool
