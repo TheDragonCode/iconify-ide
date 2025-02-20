@@ -5,20 +5,16 @@ declare(strict_types=1);
 namespace App\Ide;
 
 use App\Brands\Brand;
-use App\Brands\Laravel;
 use App\Helpers\Init;
 use Illuminate\Support\Str;
+
+use function config;
 
 abstract class Ide
 {
     protected string $folder;
 
     protected string $filename = 'icon.svg';
-
-    /** @var list<class-string<Brand>> */
-    protected array $brands = [
-        Laravel::class,
-    ];
 
     public function getName(): string
     {
@@ -40,6 +36,6 @@ abstract class Ide
      */
     public function getBrands(): array
     {
-        return Init::classes($this->brands);
+        return Init::classes(config('data.brands'));
     }
 }
