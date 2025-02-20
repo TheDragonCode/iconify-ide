@@ -12,11 +12,9 @@ abstract class Brand
 {
     protected array $projects;
 
-    protected array $sections;
-
     protected ?string $name = null;
 
-    abstract public function isFound(): bool;
+    protected bool $composer = true;
 
     public function __construct(
         protected Filesystem $filesystem
@@ -27,9 +25,26 @@ abstract class Brand
         return $this->name ??= Str::of(static::class)->basename()->snake(' ')->apa()->toString();
     }
 
-    protected function search(array $dependencies): bool
+    public function getFilename(): string
     {
-        foreach ($this->sections as $section) {
+        return Str::of(static::class)->basename()->snake()->toString();
+    }
+
+    public function isFound(): bool
+    {
+        if ($this->composer) {
+            return $this->search($this->filesystem->getComposer(), [
+                'require',
+                'require-dev',
+            ]);
+        }
+
+        return false;
+    }
+
+    protected function search(array $dependencies, array $sections): bool
+    {
+        foreach ($sections as $section) {
             if (Arr::hasAny($dependencies[$section] ?? [], $this->projects)) {
                 return true;
             }

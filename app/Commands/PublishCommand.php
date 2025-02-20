@@ -27,20 +27,31 @@ class PublishCommand extends Command
             $this->components->info($ide->getName());
 
             if (! $this->hasIde($ide)) {
-                $this->line('Not Found');
+                $this->components->twoColumnDetail($ide->getName() . ' IDE', $this->status('NOT FOUND', 'comment'));
 
                 continue;
             }
 
+            $published = false;
+
             foreach ($ide->getBrands() as $brand) {
+                if ($published) {
+                    $this->components->twoColumnDetail($brand->getName(), $this->status('SKIPPED', 'comment'));
+
+                    continue;
+                }
+
                 if (! $brand->isFound()) {
-                    $this->components->twoColumnDetail($brand->getName(), 'NOT FOUND');
+                    $this->components->twoColumnDetail($brand->getName(), $this->status('NOT FOUND', 'comment'));
+
                     continue;
                 }
 
                 $publisher->publish($ide, $brand);
 
-                $this->components->twoColumnDetail($brand->getName(), 'PUBLISHED');
+                $this->components->twoColumnDetail($brand->getName(), $this->status('PUBLISHED', 'info'));
+
+                $published = true;
             }
         }
     }
@@ -58,5 +69,10 @@ class PublishCommand extends Command
     protected function ide(): array
     {
         return config('data.ide');
+    }
+
+    protected function status(string $text, string $style): string
+    {
+        return "<$style>$text</$style>";
     }
 }

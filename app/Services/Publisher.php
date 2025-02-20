@@ -6,7 +6,6 @@ namespace DragonCode\IconifyIde\Services;
 
 use DragonCode\IconifyIde\Brands\Brand;
 use DragonCode\IconifyIde\Ide\Ide;
-use Illuminate\Contracts\Filesystem\Filesystem;
 
 class Publisher
 {
@@ -16,10 +15,6 @@ class Publisher
 
     public function publish(Ide $ide, Brand $brand): void
     {
-        dd([
-            'from' => $this->sourcePath($brand),
-            'to'   => $this->targetPath($ide),
-        ]);
         $this->files->copy(
             $this->sourcePath($brand),
             $this->targetPath($ide)
@@ -28,7 +23,7 @@ class Publisher
 
     protected function sourcePath(Brand $brand): string
     {
-        return __DIR__ . '/../../resources/brands/' . $brand->getName() . '.svg';
+        return __DIR__ . '/../../resources/brands/' . $brand->getFilename() . '.svg';
     }
 
     protected function targetPath(Ide $ide): string
