@@ -27,7 +27,7 @@ class PublishCommand extends Command
             $this->components->info($ide->getName());
 
             if (! $this->hasIde($ide)) {
-                $this->components->twoColumnDetail($ide->getName() . ' IDE', $this->status('NOT FOUND', 'comment'));
+                $this->components->twoColumnDetail($ide->getName(), $this->status('NOT FOUND', 'comment'));
 
                 continue;
             }
