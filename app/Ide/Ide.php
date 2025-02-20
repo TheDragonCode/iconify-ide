@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Ide;
+namespace DragonCode\IconifyIde\Ide;
 
-use App\Brands\Brand;
-use App\Helpers\Init;
+use DragonCode\IconifyIde\Brands\Brand;
+use DragonCode\IconifyIde\Helpers\Init;
 use Illuminate\Support\Str;
 
 use function config;

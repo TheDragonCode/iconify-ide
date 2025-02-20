@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Brands;
+namespace DragonCode\IconifyIde\Brands;
 
-use App\Services\Filesystem;
+use DragonCode\IconifyIde\Services\Filesystem;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 

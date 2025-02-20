@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Helpers;
+namespace DragonCode\IconifyIde\Helpers;
 
 use function array_map;
 

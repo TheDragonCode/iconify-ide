@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Ide;
+namespace DragonCode\IconifyIde\Ide;
 
 class PhpStorm extends Ide
 {

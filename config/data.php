@@ -1,9 +1,9 @@
 <?php
 
-use App\Brands\Laravel;
-use App\Brands\MoonShine;
-use App\Ide\Fleet;
-use App\Ide\PhpStorm;
+use DragonCode\IconifyIde\Brands\Laravel;
+use DragonCode\IconifyIde\Brands\MoonShine;
+use DragonCode\IconifyIde\Ide\Fleet;
+use DragonCode\IconifyIde\Ide\PhpStorm;
 
 return [
     'ide' => [

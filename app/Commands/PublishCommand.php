@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Commands;
+namespace DragonCode\IconifyIde\Commands;
 
-use App\Ide\Ide;
-use App\Services\Publisher;
+use DragonCode\IconifyIde\Ide\Ide;
+use DragonCode\IconifyIde\Services\Publisher;
 use LaravelZero\Framework\Commands\Command;
 use Symfony\Component\Console\Attribute\AsCommand;
 

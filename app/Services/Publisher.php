@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Services;
+namespace DragonCode\IconifyIde\Services;
 
-use App\Brands\Brand;
-use App\Ide\Ide;
+use DragonCode\IconifyIde\Brands\Brand;
+use DragonCode\IconifyIde\Ide\Ide;
 use League\Flysystem\Filesystem;
 
 class Publisher
