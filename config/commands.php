@@ -1,5 +1,7 @@
 <?php
 
+use App\Commands\PublishCommand;
+
 return [
 
     /*
@@ -13,7 +15,7 @@ return [
     |
     */
 
-    'default' => NunoMaduro\LaravelConsoleSummary\SummaryCommand::class,
+    'default' => PublishCommand::class,
 
     /*
     |--------------------------------------------------------------------------

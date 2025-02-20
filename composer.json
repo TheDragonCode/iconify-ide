@@ -20,6 +20,7 @@
         "laravel-zero/framework": "^11.36.1"
     },
     "require-dev": {
+        "dragon-code/support": "^6.15",
         "laravel/pint": "^1.18.3",
         "mockery/mockery": "^1.6.12",
         "pestphp/pest": "^3.7.1"
