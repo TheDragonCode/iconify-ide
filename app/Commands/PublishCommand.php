@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Commands;
 
+use App\Ide\Fleet;
 use App\Ide\Ide;
 use App\Ide\PhpStorm;
 use App\Services\Publisher;
@@ -22,6 +23,7 @@ class PublishCommand extends Command
     /** @var list<class-string<\App\Ide\Ide>> */
     protected array $ide = [
         PhpStorm::class,
+        Fleet::class,
     ];
 
     public function handle(Publisher $publisher): void
