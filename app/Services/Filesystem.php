@@ -25,6 +25,11 @@ class Filesystem
         return $this->registry['composer'] ??= $this->load('composer.json');
     }
 
+    public function getNode(): array
+    {
+        return $this->registry['node'] ??= $this->load('package.json');
+    }
+
     protected function load(string $filename): array
     {
         if (! file_exists($filename)) {

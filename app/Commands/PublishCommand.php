@@ -15,7 +15,8 @@ use function is_dir;
 #[AsCommand('iconify')]
 class PublishCommand extends Command
 {
-    protected $signature = 'iconify {--all : Publishing files in all projects of the current directory. Maximum depth is 3}';
+    protected $signature = 'iconify'
+    . ' {--all : Publishing files in all projects of the current directory. Maximum depth is 3}';
 
     protected $description = 'Publishes icons to improve project display in IDE';
 

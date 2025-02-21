@@ -16,8 +16,6 @@ abstract class Brand
 
     protected ?string $name = null;
 
-    protected bool $composer = true;
-
     public function __construct(
         protected Filesystem $filesystem
     ) {}
@@ -34,15 +32,26 @@ abstract class Brand
 
     public function isDetected(): bool
     {
-        if ($this->composer) {
-            return $this->search($this->filesystem->getComposer(), [
-                'name',
-                'require',
-                'require-dev',
-            ]);
-        }
+        return $this->isDetectedComposer()
+            || $this->isDetectedNode();
+    }
 
-        return false;
+    protected function isDetectedComposer(): bool
+    {
+        return $this->search($this->filesystem->getComposer(), [
+            'name',
+            'require',
+            'require-dev',
+        ]);
+    }
+
+    protected function isDetectedNode(): bool
+    {
+        return $this->search($this->filesystem->getNode(), [
+            'name',
+            'dependencies',
+            'devDependencies',
+        ]);
     }
 
     protected function search(array $dependencies, array $sections): bool
