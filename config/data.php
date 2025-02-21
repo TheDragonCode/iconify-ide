@@ -1,6 +1,7 @@
 <?php
 
 use DragonCode\IconifyIde\Brands\LaravelFramework;
+use DragonCode\IconifyIde\Brands\LaravelLang;
 use DragonCode\IconifyIde\Brands\LaravelNova;
 use DragonCode\IconifyIde\Brands\LaravelZero;
 use DragonCode\IconifyIde\Brands\MoonShine;
@@ -17,6 +18,7 @@ return [
         LaravelFramework::class,
         LaravelZero::class,
         LaravelNova::class,
+        LaravelLang::class,
         MoonShine::class,
     ],
 ];
