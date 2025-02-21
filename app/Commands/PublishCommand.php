@@ -41,7 +41,7 @@ class PublishCommand extends Command
                     continue;
                 }
 
-                if (! $brand->isFound()) {
+                if (! $brand->isDetected()) {
                     $this->components->twoColumnDetail($brand->getName(), $this->status('NOT FOUND', 'comment'));
 
                     continue;

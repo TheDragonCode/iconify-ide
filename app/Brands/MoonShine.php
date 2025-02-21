@@ -9,6 +9,6 @@ class MoonShine extends Brand
     protected ?string $name = 'MoonShine';
 
     protected array $projects = [
-        'moonshine/moonshine',
+        'moonshine/*',
     ];
 }

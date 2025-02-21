@@ -7,6 +7,9 @@ namespace DragonCode\IconifyIde\Brands;
 use DragonCode\IconifyIde\Services\Filesystem;
 use Illuminate\Support\Str;
 
+use function array_keys;
+use function is_string;
+
 abstract class Brand
 {
     protected array $projects;
@@ -29,10 +32,11 @@ abstract class Brand
         return Str::of(static::class)->basename()->snake()->toString();
     }
 
-    public function isFound(): bool
+    public function isDetected(): bool
     {
         if ($this->composer) {
             return $this->search($this->filesystem->getComposer(), [
+                'name',
                 'require',
                 'require-dev',
             ]);
@@ -44,7 +48,11 @@ abstract class Brand
     protected function search(array $dependencies, array $sections): bool
     {
         foreach ($sections as $section) {
-            foreach ($dependencies[$section] ?? [] as $dependency => $version) {
+            if (! isset($dependencies[$section])) {
+                continue;
+            }
+
+            foreach ($this->dependencyNames($section, $dependencies) as $dependency) {
                 foreach ($this->projects as $project) {
                     if (Str::is($project, $dependency)) {
                         return true;
@@ -54,5 +62,10 @@ abstract class Brand
         }
 
         return false;
+    }
+
+    protected function dependencyNames(string $key, array $dependencies): array
+    {
+        return is_string($dependencies[$key]) ? [$dependencies[$key]] : array_keys($dependencies[$key]);
     }
 }
