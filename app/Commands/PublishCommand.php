@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace DragonCode\IconifyIde\Commands;
 
+use DragonCode\IconifyIde\Contracts\Named;
 use DragonCode\IconifyIde\Ide\Ide;
 use DragonCode\IconifyIde\Services\Publisher;
 use LaravelZero\Framework\Commands\Command;
@@ -28,7 +29,7 @@ class PublishCommand extends Command
             $this->components->info($ide->getName());
 
             if (! $this->hasIde($ide)) {
-                $this->components->twoColumnDetail($ide->getName(), $this->status('NOT FOUND', 'comment'));
+                $this->infoDetails($ide, 'NOT FOUND', 'comment');
 
                 continue;
             }
@@ -37,20 +38,20 @@ class PublishCommand extends Command
 
             foreach ($ide->getBrands() as $brand) {
                 if ($published) {
-                    $this->components->twoColumnDetail($brand->getName(), $this->status('SKIPPED', 'comment'));
+                    $this->infoDetails($brand, 'SKIPPED', 'comment');
 
                     continue;
                 }
 
                 if (! $brand->isDetected()) {
-                    $this->components->twoColumnDetail($brand->getName(), $this->status('NOT FOUND', 'comment'));
+                    $this->infoDetails($brand, 'NOT FOUND', 'comment');
 
                     continue;
                 }
 
                 $publisher->publish($ide, $brand);
 
-                $this->components->twoColumnDetail($brand->getName(), $this->status('PUBLISHED', 'info'));
+                $this->infoDetails($brand, 'PUBLISHED', 'info');
 
                 $published = true;
             }
@@ -72,8 +73,8 @@ class PublishCommand extends Command
         return config('data.ide');
     }
 
-    protected function status(string $text, string $style): string
+    protected function infoDetails(Named $instance, string $status, string $style): void
     {
-        return "<$style>$text</$style>";
+        $this->components->twoColumnDetail($instance->getName(), "<$style>$status</>");
     }
 }

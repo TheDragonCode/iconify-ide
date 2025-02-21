@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace DragonCode\IconifyIde\Brands;
 
+use DragonCode\IconifyIde\Contracts\Named;
 use DragonCode\IconifyIde\Services\Filesystem;
 use Illuminate\Support\Str;
 
 use function array_keys;
 use function is_string;
 
-abstract class Brand
+abstract class Brand implements Named
 {
     protected array $projects;
 
