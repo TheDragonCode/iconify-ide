@@ -1,34 +1,90 @@
-<p align="center">
-    <img title="Laravel Zero" height="100" src="https://raw.githubusercontent.com/laravel-zero/docs/master/images/logo/laravel-zero-readme.png" alt="Laravel Zero Logo" />
-</p>
+# Iconify Your Projects
 
-<p align="center">
-  <a href="https://github.com/laravel-zero/framework/actions"><img src="https://github.com/laravel-zero/laravel-zero/actions/workflows/tests.yml/badge.svg" alt="Build Status" /></a>
-  <a href="https://packagist.org/packages/laravel-zero/framework"><img src="https://img.shields.io/packagist/dt/laravel-zero/framework.svg" alt="Total Downloads" /></a>
-  <a href="https://packagist.org/packages/laravel-zero/framework"><img src="https://img.shields.io/packagist/v/laravel-zero/framework.svg?label=stable" alt="Latest Stable Version" /></a>
-  <a href="https://packagist.org/packages/laravel-zero/framework"><img src="https://img.shields.io/packagist/l/laravel-zero/framework.svg" alt="License" /></a>
-</p>
+![](https://preview.dragon-code.pro/dragon-code/iconify%20IDE%20projects.svg?background=5865f2&preposition=with&mode=auto)
 
-Laravel Zero was created by [Nuno Maduro](https://github.com/nunomaduro) and [Owen Voke](https://github.com/owenvoke), and is a micro-framework that provides an elegant starting point for your console application. It is an **unofficial** and customized version of Laravel optimized for building command-line applications.
+[![Stable Version][badge_stable]][link_packagist]
+[![Total Downloads][badge_downloads]][link_packagist]
+[![Github Workflow Status][badge_build]][link_build]
+[![License][badge_license]][link_license]
 
-- Built on top of the [Laravel](https://laravel.com) components.
-- Optional installation of Laravel [Eloquent](https://laravel-zero.com/docs/database/), Laravel [Logging](https://laravel-zero.com/docs/logging/) and many others.
-- Supports interactive [menus](https://laravel-zero.com/docs/build-interactive-menus/) and [desktop notifications](https://laravel-zero.com/docs/send-desktop-notifications/) on Linux, Windows & MacOS.
-- Ships with a [Scheduler](https://laravel-zero.com/docs/task-scheduling/) and  a [Standalone Compiler](https://laravel-zero.com/docs/build-a-standalone-application/).
-- Integration with [Collision](https://github.com/nunomaduro/collision) - Beautiful error reporting
+## Compare
 
-------
+> ![before - after](/.github/images/compare.png)
 
-## Documentation
+## Installation
 
-For full documentation, visit [laravel-zero.com](https://laravel-zero.com/).
+To get the latest version of `Iconify IDE`, simply require the package using [Composer](https://getcomposer.org):
 
-## Support the development
-**Do you like this project? Support it by donating**
+```bash
+composer global require dragon-code/iconify-ide:*
+```
 
-- PayPal: [Donate](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=66BYDWAT92N6L)
-- Patreon: [Donate](https://www.patreon.com/nunomaduro)
+## Usage
+
+To publish the icon only to the startup folder, run the console command:
+
+```bash
+iconify
+```
+
+To recursively discover projects and publish icons, call the console command with a parameter pass:
+
+```bash
+iconify --all
+```
+
+By default, the search is performed in the current folder for which the console command is called (`./`).
+
+To search in another folder you can use the `--path` parameter:
+
+```bash
+iconify --path=foo/bar
+iconify --path=./foo/bar
+iconify --path=../foo/bar
+iconify --path=/foo/bar
+
+iconify --all --path=foo/bar
+iconify --all --path=./foo/bar
+iconify --all --path=../foo/bar
+iconify --all --path=/foo/bar
+```
+
+## Contributing
+
+> [!TIP]
+> Creating classes for new brands and IDEs is compatible
+> with [Laravel Idea](https://plugins.jetbrains.com/plugin/13441-laravel-idea).
+> 
+> ![Laravel Idea](/.github/images/laravel-idea.png)
+
+### Adding a new brand
+
+1. Place the SVG file in the `resources/brands` folder. The file name should be in `snake_case`. Or you can override the
+   `getFilename` method in the brand class. The method should return the file name without extension.
+2. Create a brand class in the `app/Brands` folder. The name should be in `PascalCase`.
+3. Specify a reference to the created class in the `config/data.php` configuration file.
+   Pay attention to the order of references - the higher the class is specified, the higher its priority.
+
+### Adding a new IDE
+
+1. Create an IDE class in the `app/Ide` folder. The name should be in `PascalCase`.
+2. Specify a reference to the created class in the `config/data.php` configuration file.
 
 ## License
 
-Laravel Zero is an open-source software licensed under the MIT license.
+This package is licensed under the [MIT License](LICENSE).
+
+
+[badge_build]:          https://img.shields.io/github/actions/workflow/status/TheDragonCode/iconify-ide/phpunit.yml?style=flat-square
+
+[badge_downloads]:      https://img.shields.io/packagist/dt/dragon-code/iconify-ide.svg?style=flat-square
+
+[badge_license]:        https://img.shields.io/packagist/l/dragon-code/iconify-ide.svg?style=flat-square
+
+[badge_stable]:         https://img.shields.io/github/v/release/TheDragonCode/iconify-ide?label=packagist&style=flat-square
+
+[link_build]:           https://github.com/TheDragonCode/iconify-ide/actions
+
+[link_license]:         LICENSE
+
+[link_packagist]:       https://packagist.org/packages/dragon-code/iconify-ide
