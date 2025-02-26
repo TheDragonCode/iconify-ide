@@ -54,7 +54,7 @@ iconify --all --path=/foo/bar
 > [!TIP]
 > Creating classes for new brands and IDEs is compatible
 > with [Laravel Idea](https://plugins.jetbrains.com/plugin/13441-laravel-idea).
-> 
+>
 > ![Laravel Idea](/.github/images/laravel-idea.png)
 
 ### Adding a new brand

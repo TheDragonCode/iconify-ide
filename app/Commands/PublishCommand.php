@@ -22,7 +22,7 @@ class PublishCommand extends Command
     public const SKIPPED   = 1;
 
     protected $signature = 'publish'
-        . ' {--path= : Indicates the way to the search directory}';
+        . ' {--path= : Indicates the Directory of the project}';
 
     protected $description = 'Publishes icons to improve project display in IDE';
 
