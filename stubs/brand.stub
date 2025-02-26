@@ -1,0 +1,15 @@
+<?php
+
+declare(strict_types=1);
+
+namespace DummyNamespace;
+
+use DragonCode\IconifyIde\Brands\Brand;
+
+class DummyClass extends Brand
+{
+    protected array $projects = [
+        'laravel/framework',
+        'dragon-code/*',
+    ];
+}

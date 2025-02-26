@@ -1,0 +1,12 @@
+<?php
+
+declare(strict_types=1);
+
+namespace DummyNamespace;
+
+use DragonCode\IconifyIde\Ide\Ide;
+
+class DummyClass extends Ide
+{
+    protected string $folder = '.idea';
+}

@@ -1,0 +1,45 @@
+{
+    "$schema": "https://laravel-ide.com/schema/laravel-ide-v2.json",
+    "codeGenerations": [
+        {
+            "id": "app.brand",
+            "name": "Create Iconify Brand",
+            "classSuffix": "",
+            "regex": ".+",
+            "files": [
+                {
+                    "appNamespace": "Brands",
+                    "name": "${INPUT_CLASS|replace: ,_|className|upperCamelCase}.php",
+                    "template": {
+                        "type": "stub",
+                        "path": "stubs/brand.stub",
+                        "parameters": {
+                            "DummyNamespace": "${INPUT_FQN|namespace}",
+                            "DummyClass": "${INPUT_CLASS|replace: ,_|className|upperCamelCase}"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "id": "app.ide",
+            "name": "Create Iconify IDE",
+            "classSuffix": "",
+            "regex": ".+",
+            "files": [
+                {
+                    "appNamespace": "Ide",
+                    "name": "${INPUT_CLASS|replace: ,_|className|upperCamelCase}.php",
+                    "template": {
+                        "type": "stub",
+                        "path": "stubs/ide.stub",
+                        "parameters": {
+                            "DummyNamespace": "${INPUT_FQN|namespace}",
+                            "DummyClass": "${INPUT_CLASS|replace: ,_|className|upperCamelCase}"
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}
