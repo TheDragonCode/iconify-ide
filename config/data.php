@@ -23,4 +23,22 @@ return [
         LaravelLang::class,
         MoonShine::class,
     ],
+
+    'exclude' => [
+        '.fleet',
+        '.git',
+        '.idea',
+        '.nova',
+        '.phpunit.cache',
+        '.vscode',
+        '.vuepress',
+        '.zed',
+        'cache',
+        'node_modules',
+        'storage',
+        'temp',
+        'tests',
+        'tmp',
+        'vendor',
+    ],
 ];

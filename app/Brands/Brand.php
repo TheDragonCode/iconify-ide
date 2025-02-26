@@ -31,28 +31,36 @@ abstract class Brand implements Named
         return Str::of(static::class)->basename()->snake()->toString();
     }
 
-    public function isDetected(): bool
+    public function isDetectedName(): bool
+    {
+        return $this->isDetectedComposer(['name'])
+            || $this->isDetectedNode(['name']);
+    }
+
+    public function isDetectedDependencies(): bool
     {
         return $this->isDetectedComposer()
             || $this->isDetectedNode();
     }
 
-    protected function isDetectedComposer(): bool
+    protected function isDetectedComposer(?array $names = null): bool
     {
-        return $this->search($this->filesystem->getComposer(), [
-            'name',
+        $names ??= [
             'require',
             'require-dev',
-        ]);
+        ];
+
+        return $this->search($this->filesystem->getComposer(), $names);
     }
 
-    protected function isDetectedNode(): bool
+    protected function isDetectedNode(?array $names = null): bool
     {
-        return $this->search($this->filesystem->getNode(), [
-            'name',
+        $names ??= [
             'dependencies',
             'devDependencies',
-        ]);
+        ];
+
+        return $this->search($this->filesystem->getNode(), $names);
     }
 
     protected function search(array $dependencies, array $sections): bool

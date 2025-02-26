@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace DragonCode\IconifyIde\Ide;
 
-use DragonCode\IconifyIde\Brands\Brand;
 use DragonCode\IconifyIde\Contracts\Named;
-use DragonCode\IconifyIde\Helpers\Init;
 use Illuminate\Support\Str;
 
 use function config;
@@ -32,11 +30,8 @@ abstract class Ide implements Named
         return $this->filename;
     }
 
-    /**
-     * @return Brand[]
-     */
     public function getBrands(): array
     {
-        return Init::classes(config('data.brands'));
+        return config('data.brands');
     }
 }

@@ -6,13 +6,14 @@ namespace DragonCode\IconifyIde\Commands;
 
 use DragonCode\IconifyIde\Services\ConsoleOutput;
 use LaravelZero\Framework\Commands\Command as BaseCommand;
+use Override;
 use Symfony\Component\Console\Input\InputInterface;
 
 abstract class Command extends BaseCommand
 {
     protected ConsoleOutput $info;
 
-    #[\Override]
+    #[Override]
     protected function configurePrompts(InputInterface $input): void
     {
         parent::configurePrompts($input);

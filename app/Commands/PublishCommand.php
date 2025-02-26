@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace DragonCode\IconifyIde\Commands;
 
+use Closure;
+use DragonCode\IconifyIde\Brands\Brand;
 use DragonCode\IconifyIde\Ide\Ide;
+use DragonCode\IconifyIde\Services\Filesystem;
 use DragonCode\IconifyIde\Services\Publisher;
 use Symfony\Component\Console\Attribute\AsCommand;
 
@@ -19,16 +22,18 @@ class PublishCommand extends Command
     public const SKIPPED   = 1;
 
     protected $signature = 'publish'
-    . ' {--path= : Indicates the way to the search directory}';
+        . ' {--path= : Indicates the way to the search directory}';
 
     protected $description = 'Publishes icons to improve project display in IDE';
 
+    protected ?Filesystem $files = null;
+
     protected bool $isPublished = false;
 
-    public function handle(Publisher $publisher): int
+    public function handle(): int
     {
-        foreach ($this->ide() as $class) {
-            $ide = $this->initializeIde($class);
+        foreach ($this->ide() as $ideClass) {
+            $ide = $this->initializeIde($ideClass);
 
             $this->info->title($ide->getName());
 
@@ -38,33 +43,45 @@ class PublishCommand extends Command
                 continue;
             }
 
-            $published = false;
-
-            foreach ($ide->getBrands() as $brand) {
-                if ($published) {
-                    $this->info->skipped($brand);
-
-                    continue;
-                }
-
-                if (! $brand->isDetected()) {
-                    $this->info->notFound($brand);
-
-                    continue;
-                }
-
-                $publisher->publish($ide, $brand, $this->getPath());
-                $this->info->published($brand);
-
-                $published = true;
-
-                $this->isPublished = true;
+            if ($this->detect($ide, fn (Brand $brand) => $brand->isDetectedName())) {
+                continue;
             }
+
+            $this->detect($ide, fn (Brand $brand) => $brand->isDetectedDependencies());
         }
 
         return $this->isPublished
             ? static::PUBLISHED
             : static::SKIPPED;
+    }
+
+    protected function detect(Ide $ide, Closure $when, bool $isPublished = false): bool
+    {
+        foreach ($ide->getBrands() as $brandClass) {
+            $brand = $this->initializeBrand($brandClass);
+
+            if ($isPublished) {
+                $this->info->skipped($brand);
+
+                continue;
+            }
+
+            if (! $when($brand)) {
+                $this->info->notFound($brand);
+
+                continue;
+            }
+
+            (new Publisher($this->getFilesystem()))->publish($ide, $brand);
+
+            $this->info->published($brand);
+
+            $isPublished = true;
+
+            $this->isPublished = true;
+        }
+
+        return $isPublished;
     }
 
     protected function hasIde(Ide $ide): bool
@@ -74,7 +91,12 @@ class PublishCommand extends Command
 
     protected function initializeIde(string $ide): Ide
     {
-        return $this->app->make($ide);
+        return new $ide($this->getFilesystem());
+    }
+
+    protected function initializeBrand(string $brand): Brand
+    {
+        return new $brand($this->getFilesystem());
     }
 
     protected function ide(): array
@@ -89,5 +111,10 @@ class PublishCommand extends Command
         }
 
         return realpath('.');
+    }
+
+    protected function getFilesystem(): Filesystem
+    {
+        return $this->files ??= new Filesystem($this->getPath());
     }
 }

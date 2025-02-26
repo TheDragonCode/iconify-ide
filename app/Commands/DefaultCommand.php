@@ -4,68 +4,73 @@ declare(strict_types=1);
 
 namespace DragonCode\IconifyIde\Commands;
 
-use DragonCode\Support\Facades\Filesystem\Directory;
-use Illuminate\Support\Str;
+use DirectoryIterator;
+use DragonCode\IconifyIde\Services\Filesystem;
 use InvalidArgumentException;
 
-use function array_unshift;
-use function count;
+use function config;
 use function file_exists;
 use function filled;
+use function in_array;
 use function is_dir;
 use function realpath;
 
 class DefaultCommand extends Command
 {
     protected $signature = 'default'
-    . ' {--all : Publishing files in all projects of the current directory}'
-    . ' {--path= : Indicates the way to the search directory}';
+        . ' {--all : Publishing files in all projects of the current directory}'
+        . ' {--path= : Indicates the way to the search directory}';
 
     protected $description = 'Publishes icons to improve project display in IDE';
 
     public function handle(): void
     {
-        $count = count($directories = $this->getDirectories());
+        if ($this->hasAll()) {
+            $this->info->title('Recursive search for projects ...');
 
-        $this->process($directories, $count);
+            $this->processWithStatus($this->getPath());
+            $this->processMany($this->getPath(), new Filesystem($this->getPath()));
+
+            return;
+        }
+
+        $this->processOnce($this->getPath());
     }
 
-    protected function process(array $directories, int $count): void
+    protected function processOnce(string $path, bool $silent = false): int
     {
-        $count === 1
-            ? $this->processOnce($directories[0])
-            : $this->processMany($directories);
+        return $silent
+            ? $this->callSilent(PublishCommand::class, ['--path' => $path])
+            : $this->call(PublishCommand::class, ['--path' => $path]);
     }
 
-    protected function processOnce(string $directory): void
+    protected function processMany(string $path, Filesystem $files): void
     {
-        $this->call(PublishCommand::class, ['--path' => $directory]);
-    }
+        foreach ($files->directory($path) as $directory) {
+            if ($this->skip($directory)) {
+                continue;
+            }
 
-    protected function processMany(array $directories): void
-    {
-        $this->info->title('Recursive search for projects ...');
+            $this->processWithStatus($directory->getRealPath());
 
-        foreach ($directories as $directory) {
-            $status = $this->callSilent(PublishCommand::class, ['--path' => $directory]);
-
-            $this->info->status($directory, $status);
+            if (! $directory->isDot()) {
+                $this->processMany($directory->getRealPath(), new Filesystem($directory->getRealPath()));
+            }
         }
     }
 
-    protected function getDirectories(): array
+    protected function processWithStatus(string $path): void
     {
-        if (! $this->hasAll()) {
-            return [$this->getPath()];
+        $this->info->status($path, $this->processOnce($path, true));
+    }
+
+    protected function skip(DirectoryIterator $directory): bool
+    {
+        if (! $directory->isDir() || $directory->isDot()) {
+            return true;
         }
 
-        $paths = Directory::allPaths($this->getPath(), static function (string $path) {
-            return Str::doesntContain($path, ['.git', 'vendor', 'node_modules', 'tests']);
-        }, recursive: true);
-
-        array_unshift($paths, realpath($this->getPath()));
-
-        return $paths;
+        return (bool) (in_array($directory->getBasename(), config('data.exclude'), true));
     }
 
     protected function getPath(): string
@@ -75,11 +80,6 @@ class DefaultCommand extends Command
         }
 
         return '.';
-    }
-
-    protected function hasAll(): bool
-    {
-        return $this->option('all');
     }
 
     protected function validatePath(string $path): string
@@ -92,6 +92,11 @@ class DefaultCommand extends Command
             throw new InvalidArgumentException("The specified path is not a directory ($path).");
         }
 
-        return $path;
+        return realpath($path);
+    }
+
+    protected function hasAll(): bool
+    {
+        return $this->option('all');
     }
 }

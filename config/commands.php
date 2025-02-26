@@ -3,7 +3,6 @@
 use DragonCode\IconifyIde\Commands\DefaultCommand;
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Default Command
@@ -77,7 +76,5 @@ return [
     */
 
     'remove' => [
-        //
     ],
-
 ];

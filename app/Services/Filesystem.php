@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace DragonCode\IconifyIde\Services;
 
+use DirectoryIterator;
 use DragonCode\Support\Facades\Filesystem\Directory;
 
 use function copy;
@@ -18,21 +19,33 @@ class Filesystem
 {
     protected array $registry = [];
 
+    public function __construct(
+        protected readonly string $directory
+    ) {}
+
+    /**
+     * @return DirectoryIterator|array<DirectoryIterator>
+     */
+    public function directory(string $path): DirectoryIterator
+    {
+        return Directory::all($path);
+    }
+
     public function copy(string $source, string $target): void
     {
         Directory::ensureDirectory(dirname($target));
 
-        copy($source, $target);
+        copy($source, $this->directory . '/' . $target);
     }
 
     public function getComposer(): array
     {
-        return $this->registry['composer'] ??= $this->load('composer.json');
+        return $this->registry['composer'] ??= $this->load($this->directory . '/composer.json');
     }
 
     public function getNode(): array
     {
-        return $this->registry['node'] ??= $this->load('package.json');
+        return $this->registry['node'] ??= $this->load($this->directory . '/package.json');
     }
 
     protected function load(string $filename): array
