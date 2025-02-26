@@ -4,32 +4,36 @@ declare(strict_types=1);
 
 namespace DragonCode\IconifyIde\Commands;
 
-use DragonCode\IconifyIde\Contracts\Named;
 use DragonCode\IconifyIde\Ide\Ide;
 use DragonCode\IconifyIde\Services\Publisher;
-use LaravelZero\Framework\Commands\Command;
 use Symfony\Component\Console\Attribute\AsCommand;
 
 use function config;
 use function is_dir;
+use function realpath;
 
-#[AsCommand('iconify')]
+#[AsCommand('publish')]
 class PublishCommand extends Command
 {
-    protected $signature = 'iconify'
-    . ' {--all : Publishing files in all projects of the current directory. Maximum depth is 3}';
+    public const PUBLISHED = 0;
+    public const SKIPPED   = 1;
+
+    protected $signature = 'publish'
+    . ' {--path= : Indicates the way to the search directory}';
 
     protected $description = 'Publishes icons to improve project display in IDE';
 
-    public function handle(Publisher $publisher): void
+    protected bool $isPublished = false;
+
+    public function handle(Publisher $publisher): int
     {
         foreach ($this->ide() as $class) {
             $ide = $this->initializeIde($class);
 
-            $this->components->info($ide->getName());
+            $this->info->title($ide->getName());
 
             if (! $this->hasIde($ide)) {
-                $this->infoDetails($ide, 'NOT FOUND', 'comment');
+                $this->info->notFound($ide);
 
                 continue;
             }
@@ -38,29 +42,34 @@ class PublishCommand extends Command
 
             foreach ($ide->getBrands() as $brand) {
                 if ($published) {
-                    $this->infoDetails($brand, 'SKIPPED', 'comment');
+                    $this->info->skipped($brand);
 
                     continue;
                 }
 
                 if (! $brand->isDetected()) {
-                    $this->infoDetails($brand, 'NOT FOUND', 'comment');
+                    $this->info->notFound($brand);
 
                     continue;
                 }
 
-                $publisher->publish($ide, $brand);
-
-                $this->infoDetails($brand, 'PUBLISHED', 'info');
+                $publisher->publish($ide, $brand, $this->getPath());
+                $this->info->published($brand);
 
                 $published = true;
+
+                $this->isPublished = true;
             }
         }
+
+        return $this->isPublished
+            ? static::PUBLISHED
+            : static::SKIPPED;
     }
 
     protected function hasIde(Ide $ide): bool
     {
-        return is_dir('./' . $ide->getDirectoryName());
+        return is_dir($this->getPath() . '/' . $ide->getDirectoryName());
     }
 
     protected function initializeIde(string $ide): Ide
@@ -73,8 +82,12 @@ class PublishCommand extends Command
         return config('data.ide');
     }
 
-    protected function infoDetails(Named $instance, string $status, string $style): void
+    protected function getPath(): string
     {
-        $this->components->twoColumnDetail($instance->getName(), "<$style>$status</>");
+        if ($this->hasOption('path')) {
+            return $this->option('path');
+        }
+
+        return realpath('.');
     }
 }

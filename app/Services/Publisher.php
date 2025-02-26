@@ -13,11 +13,11 @@ class Publisher
         protected Filesystem $files
     ) {}
 
-    public function publish(Ide $ide, Brand $brand): void
+    public function publish(Ide $ide, Brand $brand, string $path): void
     {
         $this->files->copy(
             $this->sourcePath($brand),
-            $this->targetPath($ide)
+            $this->targetPath($ide, $path)
         );
     }
 
@@ -26,8 +26,8 @@ class Publisher
         return __DIR__ . '/../../resources/brands/' . $brand->getFilename() . '.svg';
     }
 
-    protected function targetPath(Ide $ide): string
+    protected function targetPath(Ide $ide, string $path): string
     {
-        return './' . $ide->getDirectoryName() . '/' . $ide->getFilename();
+        return $path . '/' . $ide->getDirectoryName() . '/' . $ide->getFilename();
     }
 }

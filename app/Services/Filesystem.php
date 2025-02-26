@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace DragonCode\IconifyIde\Services;
 
+use DragonCode\Support\Facades\Filesystem\Directory;
+
 use function copy;
+use function dirname;
 use function file_exists;
 use function file_get_contents;
 use function json_decode;
@@ -17,6 +20,8 @@ class Filesystem
 
     public function copy(string $source, string $target): void
     {
+        Directory::ensureDirectory(dirname($target));
+
         copy($source, $target);
     }
 

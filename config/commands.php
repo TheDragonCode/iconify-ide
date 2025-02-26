@@ -1,6 +1,6 @@
 <?php
 
-use DragonCode\IconifyIde\Commands\PublishCommand;
+use DragonCode\IconifyIde\Commands\DefaultCommand;
 
 return [
 
@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'default' => PublishCommand::class,
+    'default' => DefaultCommand::class,
 
     /*
     |--------------------------------------------------------------------------
@@ -41,9 +41,7 @@ return [
     |
     */
 
-    'add' => [
-        //
-    ],
+    'add' => [],
 
     /*
     |--------------------------------------------------------------------------
