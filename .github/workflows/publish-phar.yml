@@ -53,15 +53,15 @@ jobs:
                 run: |
                     IS_DIRTY=1
 
-                    sudo php ./codestyle app:build codestyle.phar --build-version=${{ steps.tag.outputs.tag }}
+                    sudo php ./iconify app:build iconify.phar --build-version=${{ steps.tag.outputs.tag }}
 
             -   name: Upload the PHAR artifact
                 uses: actions/upload-artifact@v4
                 with:
-                    name: codestyle.phar
-                    path: builds/codestyle.phar
+                    name: iconify.phar
+                    path: builds/iconify.phar
 
             -   name: Upload the PHAR to release
-                run: gh release upload v${{ steps.tag.outputs.tag }} builds/codestyle.phar
+                run: gh release upload v${{ steps.tag.outputs.tag }} builds/iconify.phar
                 env:
                     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

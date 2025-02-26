@@ -70,7 +70,7 @@ class DefaultCommand extends Command
             return true;
         }
 
-        return (bool) in_array($directory->getBasename(), config('data.exclude'), true);
+        return in_array($directory->getBasename(), config('data.exclude'), true);
     }
 
     protected function getPath(): string
