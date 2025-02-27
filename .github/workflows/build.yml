@@ -52,17 +52,16 @@ jobs:
                     retention-days: 1
     
     checks:
-        runs-on: ${{ matrix.os }}-latest
+        runs-on: ubuntu-latest
         
         needs: build
         
         strategy:
             fail-fast: true
             matrix:
-                os: [ "ubuntu", "windows" ]
                 php: [ "8.2", "8.3", "8.4" ]
         
-        name: check on ${{ matrix.os }} with PHP ${{ matrix.php }}
+        name: Check PHP ${{ matrix.php }}
         
         steps:
             -   name: Setup PHP
@@ -74,12 +73,7 @@ jobs:
                     coverage: none
 
             -   name: Remove old file from Ubuntu
-                if: ${{ matrix.os == 'ubuntu' }}
                 run: rm -f builds/iconify
-
-            -   name: Remove old file from Windows
-                if: ${{ matrix.os == 'windows' }}
-                run: Remove-Item -Path "builds/iconify" -Force
 
             -   uses: actions/download-artifact@v4
                 with:
