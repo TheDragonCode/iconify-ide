@@ -106,11 +106,9 @@ class PublishCommand extends Command
 
     protected function getPath(): string
     {
-        if ($this->hasOption('path')) {
-            return $this->option('path');
-        }
-
-        return realpath('.');
+        return realpath(
+            $this->option('path') ?: '.'
+        );
     }
 
     protected function getFilesystem(): Filesystem

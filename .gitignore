@@ -1,6 +1,8 @@
+/.fleet
 /.idea
 /.vagrant
 /.vscode
+
 /tests/temp
 /vendor
 
