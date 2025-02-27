@@ -23,19 +23,6 @@ body:
         validations:
             required: true
 
-    -   type: textarea
-        id: environment
-        attributes:
-            label: Environment
-            description: |
-                Tip: Use the `composer global info dragon-code/iconify-ide` command to get information for Laravel Lang.
-                Tip: Use the `php -v` command to get information for PHP.
-            value: |
-                - Code Styler Version:
-                - PHP Version:
-        validations:
-            required: true
-
     -   type: markdown
         attributes:
             value: |
