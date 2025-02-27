@@ -52,14 +52,14 @@ jobs:
                     retention-days: 1
     
     checks:
-        runs-on: ubuntu-latest
+        runs-on: ${{ matrix.os }}-latest
         
         needs: build
         
         strategy:
             fail-fast: true
             matrix:
-                os: [ "ubuntu-latest", "windows-latest" ]
+                os: [ "ubuntu", "windows" ]
                 php: [ "8.2", "8.3", "8.4" ]
         
         name: check on ${{ matrix.os }} with PHP ${{ matrix.php }}
@@ -84,8 +84,13 @@ jobs:
             -   name: Show version
                 run: php builds/iconify --version
 
-            -   name: Run iconify-ide
-                run: sudo php builds/iconify test
+            -   name: Tests for Linux
+                if: ${{ matrix.os == 'ubuntu' }}
+                run: sudo php ./iconify test
+
+            -   name: Tests for Windows
+                if: ${{ matrix.os == 'windows' }}
+                run: php ./iconify test
     
     push:
         runs-on: ubuntu-latest
