@@ -79,7 +79,7 @@ jobs:
 
             -   name: Tests for Windows
                 if: ${{ matrix.os == 'windows' }}
-                run: rm builds/iconify
+                run: del builds/iconify
 
             -   uses: actions/download-artifact@v4
                 with:
