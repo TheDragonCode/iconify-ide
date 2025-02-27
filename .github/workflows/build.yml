@@ -73,13 +73,13 @@ jobs:
                     ini-values: error_reporting=E_ALL
                     coverage: none
 
-            -   name: Remove old file
+            -   name: Remove old file from Ubuntu
                 if: ${{ matrix.os == 'ubuntu' }}
                 run: rm -f builds/iconify
 
-            -   name: Tests for Windows
+            -   name: Remove old file from Windows
                 if: ${{ matrix.os == 'windows' }}
-                run: del /f /q builds/iconify
+                run: del /f builds/iconify
 
             -   uses: actions/download-artifact@v4
                 with:
