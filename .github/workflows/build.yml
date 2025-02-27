@@ -79,7 +79,7 @@ jobs:
 
             -   name: Remove old file from Windows
                 if: ${{ matrix.os == 'windows' }}
-                run: del /f builds\iconify
+                run: del /d builds
 
             -   uses: actions/download-artifact@v4
                 with:
