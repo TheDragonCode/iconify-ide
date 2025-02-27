@@ -49,6 +49,22 @@ iconify --all --path=../foo/bar
 iconify --all --path=/foo/bar
 ```
 
+## Available brands and IDEs
+
+### IDE
+
+* [PhpStorm](https://www.jetbrains.com/phpstorm/)
+* [Fleet](https://www.jetbrains.com/fleet/)
+
+### Brands
+
+* [The Dragon Code](https://github.com/TheDragonCode)
+* [Laravel Framework](https://laravel.com/)
+* [Laravel Nova](https://nova.laravel.com/)
+* [Laravel-Lang](https://laravel-lang.com/)
+* [Laravel Zero](https://laravel-zero.com/)
+* [MoonShine Laravel Admin Panel](https://getmoonshine.app/)
+
 ## Contributing
 
 > [!TIP]
