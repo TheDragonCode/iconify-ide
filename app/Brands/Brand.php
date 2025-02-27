@@ -7,8 +7,10 @@ namespace DragonCode\IconifyIde\Brands;
 use DragonCode\IconifyIde\Contracts\Named;
 use DragonCode\IconifyIde\Services\Filesystem;
 use Illuminate\Support\Str;
+use Illuminate\Support\Stringable;
 
 use function array_keys;
+use function class_basename;
 use function is_string;
 
 abstract class Brand implements Named
@@ -23,12 +25,12 @@ abstract class Brand implements Named
 
     public function getName(): string
     {
-        return $this->name ??= Str::of(static::class)->basename()->snake(' ')->apa()->toString();
+        return $this->name ??= $this->classBasename()->snake(' ')->apa()->toString();
     }
 
     public function getFilename(): string
     {
-        return Str::of(static::class)->basename()->snake()->toString();
+        return $this->classBasename()->snake()->toString();
     }
 
     public function isDetectedName(): bool
@@ -85,5 +87,10 @@ abstract class Brand implements Named
     protected function dependencyNames(string $key, array $dependencies): array
     {
         return is_string($dependencies[$key]) ? [$dependencies[$key]] : array_keys($dependencies[$key]);
+    }
+
+    protected function classBasename(): Stringable
+    {
+        return Str::of(class_basename(static::class));
     }
 }

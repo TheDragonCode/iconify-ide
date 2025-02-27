@@ -39,7 +39,7 @@ jobs:
                 run: composer install --prefer-dist --no-progress --no-interaction --no-suggest
 
             -   name: Execute unit/feature tests
-                run: php ./iconify --test
+                run: sudo php ./iconify
 
             -   name: Create the PHAR file
                 run: php ./iconify app:build iconify --build-version=${{ steps.tag.outputs.tag }} --ansi
@@ -85,7 +85,7 @@ jobs:
                 run: php builds/iconify --version
 
             -   name: Run iconify-ide
-                run: php builds/iconify --test
+                run: sudo php builds/iconify test
     
     push:
         runs-on: ubuntu-latest
