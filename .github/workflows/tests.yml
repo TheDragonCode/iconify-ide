@@ -44,5 +44,10 @@ jobs:
             -   name: Install dependencies
                 run: composer install --prefer-dist --no-progress --no-interaction --no-suggest
 
-            -   name: Application code-style testing
+            -   name: Tests for Linux
+                if: ${{ matrix.os == 'ubuntu' }}
                 run: sudo php ./iconify test
+
+            -   name: Tests for Windows
+                if: ${{ matrix.os == 'windows' }}
+                run: php ./iconify test
