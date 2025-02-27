@@ -91,7 +91,7 @@ iconify --all --path=/foo/bar
 This package is licensed under the [MIT License](LICENSE).
 
 
-[badge_build]:          https://img.shields.io/github/actions/workflow/status/TheDragonCode/iconify-ide/phpunit.yml?style=flat-square
+[badge_build]:          https://img.shields.io/github/actions/workflow/status/TheDragonCode/iconify-ide/tests.yml?style=flat-square
 
 [badge_downloads]:      https://img.shields.io/packagist/dt/dragon-code/iconify-ide.svg?style=flat-square
 
