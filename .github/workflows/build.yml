@@ -23,7 +23,7 @@ jobs:
                     echo "tag=${GITHUB_REF##*v}" >> "$GITHUB_OUTPUT"
 
             -   name: Checkout the code
-                uses: actions/checkout@v4
+                uses: actions/checkout@v5
                 with:
                     submodules: true
 
@@ -90,7 +90,7 @@ jobs:
         
         steps:
             -   name: Checkout the code
-                uses: actions/checkout@v4
+                uses: actions/checkout@v5
 
             -   name: Remove old file
                 run: rm -f builds/iconify
