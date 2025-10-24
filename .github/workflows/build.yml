@@ -45,7 +45,7 @@ jobs:
                 run: php ./iconify app:build iconify --build-version=${{ steps.tag.outputs.tag }} --ansi
 
             -   name: Upload artifact
-                uses: actions/upload-artifact@v4
+                uses: actions/upload-artifact@v5
                 with:
                     name: iconify
                     path: builds/iconify
