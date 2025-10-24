@@ -75,7 +75,7 @@ jobs:
             -   name: Remove old file from Ubuntu
                 run: rm -f builds/iconify
 
-            -   uses: actions/download-artifact@v5
+            -   uses: actions/download-artifact@v6
                 with:
                     name: iconify
                     path: builds
@@ -95,7 +95,7 @@ jobs:
             -   name: Remove old file
                 run: rm -f builds/iconify
 
-            -   uses: actions/download-artifact@v5
+            -   uses: actions/download-artifact@v6
                 with:
                     name: iconify
                     path: builds
