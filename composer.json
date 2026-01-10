@@ -2,7 +2,7 @@
     "name": "dragon-code/iconify-ide",
     "description": "Easily stylize your IDE interface by adding branded project icons",
     "license": "MIT",
-    "type": "project",
+    "type": "library",
     "keywords": [
         "brand",
         "brands",
