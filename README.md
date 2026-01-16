@@ -1,8 +1,8 @@
 # Iconify Your Projects
 
 <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://banners.beyondco.de/Iconify%20Ide.png?theme=dark&pattern=topography&style=style_2&fontSize=100px&images=https%3A%2F%2Fwww.php.net%2Fimages%2Flogos%2Fnew-php-logo.svg&packageManager=composer+require&packageName=dragon-code%2Ficonify-ide&description=Easily+stylize+your+IDE+interface+by+adding+branded+project+icons&md=1&showWatermark=1">
-    <img src="https://banners.beyondco.de/Iconify%20Ide.png?theme=light&pattern=topography&style=style_2&fontSize=100px&images=https%3A%2F%2Fwww.php.net%2Fimages%2Flogos%2Fnew-php-logo.svg&packageManager=composer+require&packageName=dragon-code%2Ficonify-ide&description=Easily+stylize+your+IDE+interface+by+adding+branded+project+icons&md=1&showWatermark=1" alt="Iconify Ide">
+    <source media="(prefers-color-scheme: dark)" srcset="https://banners.beyondco.de/Iconify%20Ide.png?pattern=topography&style=style_2&fontSize=100px&md=1&showWatermark=1&theme=dark&packageManager=composer+require&packageName=dragon-code%2Ficonify-ide&description=Easily+stylize+your+IDE+interface+by+adding+branded+project+icons&images=https%3A%2F%2Fwww.php.net%2Fimages%2Flogos%2Fnew-php-logo.svg">
+    <img src="https://banners.beyondco.de/Iconify%20Ide.png?pattern=topography&style=style_2&fontSize=100px&md=1&showWatermark=1&theme=light&packageManager=composer+require&packageName=dragon-code%2Ficonify-ide&description=Easily+stylize+your+IDE+interface+by+adding+branded+project+icons&images=https%3A%2F%2Fwww.php.net%2Fimages%2Flogos%2Fnew-php-logo.svg" alt="Iconify Ide">
 </picture>
 
 ![](https://preview.dragon-code.pro/dragon-code/iconify%20IDE%20projects.svg?background=5865f2&preposition=with&mode=auto)
