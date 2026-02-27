@@ -56,7 +56,7 @@ jobs:
                     sudo php ./iconify app:build iconify.phar --build-version=${{ steps.tag.outputs.tag }}
 
             -   name: Upload the PHAR artifact
-                uses: actions/upload-artifact@v6
+                uses: actions/upload-artifact@v7
                 with:
                     name: iconify.phar
                     path: builds/iconify.phar
